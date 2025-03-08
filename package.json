@@ -1,0 +1,20 @@
+{
+  "name": "womens-day-gift",
+  "version": "1.0.0",
+  "description": "A web project that designs a webpage resembling a gift box, revealing love notes, photos, or promises when opened, with a 'Happy Women's Day' message.",
+  "main": "src/js/main.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "nodemailer": "^6.10.0"
+  }
+}

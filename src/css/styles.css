@@ -1,0 +1,538 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #fff0f5;
+    background-image: radial-gradient(#ff69b4 1px, transparent 1px),
+                      radial-gradient(#ff69b4 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    overflow: hidden;
+}
+
+/* Remove single heart */
+body::before {
+    display: none;
+}
+
+/* Add multiple hearts */
+@keyframes float-hearts {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(calc(var(--drift) * 50px)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: fixed;
+    font-size: 20px;
+    color: #ff69b4;
+    opacity: 0.6;
+    animation: float-hearts 6s linear infinite;
+    z-index: 1;
+}
+
+/* Generate 20 hearts with different positions and delays */
+.heart:nth-child(1) { left: 5%; animation-delay: 0s; --drift: 1; }
+.heart:nth-child(2) { left: 15%; animation-delay: 0.3s; --drift: -1; }
+.heart:nth-child(3) { left: 25%; animation-delay: 0.6s; --drift: 2; }
+.heart:nth-child(4) { left: 35%; animation-delay: 0.9s; --drift: -2; }
+.heart:nth-child(5) { left: 45%; animation-delay: 1.2s; --drift: 1; }
+.heart:nth-child(6) { left: 55%; animation-delay: 1.5s; --drift: -1; }
+.heart:nth-child(7) { left: 65%; animation-delay: 1.8s; --drift: 2; }
+.heart:nth-child(8) { left: 75%; animation-delay: 2.1s; --drift: -2; }
+.heart:nth-child(9) { left: 85%; animation-delay: 2.4s; --drift: 1; }
+.heart:nth-child(10) { left: 95%; animation-delay: 2.7s; --drift: -1; }
+.heart:nth-child(11) { left: 10%; animation-delay: 3s; --drift: 2; }
+.heart:nth-child(12) { left: 20%; animation-delay: 3.3s; --drift: -2; }
+.heart:nth-child(13) { left: 30%; animation-delay: 3.6s; --drift: 1; }
+.heart:nth-child(14) { left: 40%; animation-delay: 3.9s; --drift: -1; }
+.heart:nth-child(15) { left: 50%; animation-delay: 4.2s; --drift: 2; }
+.heart:nth-child(16) { left: 60%; animation-delay: 4.5s; --drift: -2; }
+.heart:nth-child(17) { left: 70%; animation-delay: 4.8s; --drift: 1; }
+.heart:nth-child(18) { left: 80%; animation-delay: 5.1s; --drift: -1; }
+.heart:nth-child(19) { left: 90%; animation-delay: 5.4s; --drift: 2; }
+.heart:nth-child(20) { left: 100%; animation-delay: 5.7s; --drift: -2; }
+
+/* Add different colors */
+.heart:nth-child(4n) { color: #ff1493; }
+.heart:nth-child(4n+1) { color: #ff69b4; }
+.heart:nth-child(4n+2) { color: #ffb6c1; }
+.heart:nth-child(4n+3) { color: #ffc0cb; }
+
+.title {
+    color: #ff1493;
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0px rgba(255, 182, 193, 0.7);
+}
+
+.scene {
+    perspective: 1000px;
+    margin: 50px 0;
+}
+
+.gift-box {
+    position: relative;
+    width: 400px;  /* Decreased from 500px */
+    height: 450px; /* Decreased from 600px */
+    background: linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 100%);
+    border: 4px solid #ff69b4;
+    border-radius: 25px;
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.2);
+    z-index: 2;
+}
+
+/* Remove these styles */
+.heart-background,
+.heart-background::before,
+.heart-background::after {
+    display: none;
+}
+
+.box-lid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform-origin: top;
+    transition: transform 0.8s ease;
+}
+
+.gift-box.open .box-lid {
+    transform: rotateX(-60deg) translateY(-5px);
+}
+
+.lid-top {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #ff69b4;
+    transform: rotateX(90deg) translateZ(25px);
+}
+
+.lid-front, .lid-back, .lid-right, .lid-left {
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    background: #ff1493;
+}
+
+.lid-front { transform: translateZ(150px); }
+.lid-back { transform: rotateY(180deg) translateZ(150px); }
+.lid-right { transform: rotateY(90deg) translateZ(150px); width: 300px; }
+.lid-left { transform: rotateY(-90deg) translateZ(150px); width: 300px; }
+
+.box-bottom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.front, .back, .right, .left, .bottom {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #ffc0cb;
+}
+
+.front { transform: translateZ(150px); }
+.back { transform: rotateY(180deg) translateZ(150px); }
+.right { transform: rotateY(90deg) translateZ(150px); }
+.left { transform: rotateY(-90deg) translateZ(150px); }
+.bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+.ribbon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.ribbon-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.ribbon-vertical {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    left: 125px;
+    background: #ff1493;
+    transform: translateZ(151px);
+}
+
+.ribbon-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 125px;
+    background: #ff1493;
+    transform: translateZ(151px);
+}
+
+.bow {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 120px;
+    height: 60px;
+}
+
+.bow-left, .bow-right {
+    width: 50px;
+    height: 80px;
+    position: absolute;
+    background: #ff1493;
+    border-radius: 50px 50px 0 50px;
+    top: -10px;
+}
+
+.bow-left {
+    left: -25px;
+    transform: rotate(-30deg) skew(10deg);
+    animation: bowFloatLeft 3s ease-in-out infinite;
+}
+
+.bow-right {
+    right: -25px;
+    transform: rotate(30deg) skew(-10deg);
+    border-radius: 50px 50px 50px 0;
+    animation: bowFloatRight 3s ease-in-out infinite;
+}
+
+.bow-center {
+    width: 40px;
+    height: 40px;
+    background: #ff1493;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    transform: rotate(45deg);
+    box-shadow: 0 5px 10px rgba(255, 20, 147, 0.3);
+}
+
+.content {
+    padding: 50px 25px; /* Adjusted padding */
+    display: none;
+}
+
+.gift-item {
+    width: calc(100% - 30px); /* Adjusted width */
+    padding: 15px;
+    margin: 12px 15px;
+    background: white;
+    border: 2px solid #ff69b4;
+    border-radius: 15px;
+    color: #ff1493;
+    font-size: 1.1rem; /* Slightly smaller font */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gift-item:hover {
+    background: #fff0f5;
+    transform: scale(1.02);
+}
+
+.gift-item.revealed {
+    background: #fff0f5;
+    white-space: pre-wrap;
+    height: auto;
+}
+
+.gift-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f0f0f0;
+}
+
+.gift-item.disabled:hover {
+    transform: none;
+    background: #f0f0f0;
+}
+
+.gift-box.open .content {
+    display: block;
+    opacity: 1;
+}
+
+.note, .photo, .promise {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+    text-align: center;
+    color: #ff1493;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.15);
+}
+
+.note:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.open-button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background: linear-gradient(to right, #ff69b4, #ff1493);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.open-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
+}
+
+.message {
+    margin-top: 20px;
+    color: #ff1493;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 0px rgba(255, 182, 193, 0.5);
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.show {
+    opacity: 1;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bowWiggle {
+    0% { transform: rotate(-45deg); }
+    50% { transform: rotate(-40deg); }
+    100% { transform: rotate(-45deg); }
+}
+
+@keyframes bowFloatLeft {
+    0% { transform: rotate(-30deg) skew(10deg); }
+    50% { transform: rotate(-25deg) skew(8deg); }
+    100% { transform: rotate(-30deg) skew(10deg); }
+}
+
+@keyframes bowFloatRight {
+    0% { transform: rotate(30deg) skew(-10deg); }
+    50% { transform: rotate(25deg) skew(-8deg); }
+    100% { transform: rotate(30deg) skew(-10deg); }
+}
+
+.gift-box::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffb6c1;
+    right: -4px;
+    top: 0;
+    transform: rotateY(90deg);
+    transform-origin: right;
+    border: 4px solid #ff69b4;
+    border-radius: 25px;
+}
+
+.gift-box::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffb6c1;
+    bottom: -4px;
+    left: 0;
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+    border: 4px solid #ff69b4;
+    border-radius: 25px;
+}
+
+@keyframes openBox {
+    from {
+        transform: perspective(1000px) rotateX(10deg);
+    }
+    to {
+        transform: perspective(1000px) rotateX(5deg);
+    }
+}
+
+.gift-box.open {
+    animation: openBox 0.6s forwards;
+}
+
+.lid {
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to right, #ff69b4, #ff1493);
+    position: absolute;
+    top: 0;
+    border-radius: 21px 21px 0 0;
+}
+
+.firework-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    display: none;
+}
+
+.firework {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    animation: shoot 0.8s ease-out forwards;
+}
+
+.firework::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(transparent, currentColor, transparent);
+    transform-origin: 50% 100%;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(30);
+        opacity: 0;
+    }
+}
+
+@keyframes shoot {
+    0% {
+        transform: translateY(100vh) scale(1);
+    }
+    50% {
+        transform: translateY(50vh) scale(1);
+    }
+    100% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes twinkle {
+    50% {
+        opacity: 0.5;
+        background-position: 25px 25px;
+    }
+}
+
+.petal {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: #ff69b4;
+    border-radius: 20px 0;
+    animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+.hearts-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    font-size: 24px;
+    color: #ff69b4;
+    animation: flyHeart 4s linear infinite;
+}
+
+@keyframes flyHeart {
+    0% {
+        transform: translate(0, 100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--random-x), -100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Position hearts at different starting points */
+.heart:nth-child(1) { left: 10%; animation-delay: 0s; --random-x: 50px; }
+.heart:nth-child(2) { left: 20%; animation-delay: -1s; --random-x: -30px; }
+.heart:nth-child(3) { left: 30%; animation-delay: -2s; --random-x: 80px; }
+.heart:nth-child(4) { left: 40%; animation-delay: -1.5s; --random-x: -60px; }
+.heart:nth-child(5) { left: 50%; animation-delay: -3s; --random-x: 40px; }
+.heart:nth-child(6) { left: 60%; animation-delay: -2.5s; --random-x: -50px; }
+.heart:nth-child(7) { left: 70%; animation-delay: -1.8s; --random-x: 70px; }
+.heart:nth-child(8) { left: 80%; animation-delay: -2.2s; --random-x: -40px; }
+.heart:nth-child(9) { left: 90%; animation-delay: -3.5s; --random-x: 30px; }
+.heart:nth-child(10) { left: 95%; animation-delay: -1.2s; --random-x: -70px; }
