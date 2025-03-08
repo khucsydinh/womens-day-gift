@@ -92,9 +92,9 @@ body::before {
 }
 
 .gift-box {
+    width: 400px;
+    height: 450px;
     position: relative;
-    width: 400px;  /* Decreased from 500px */
-    height: 450px; /* Decreased from 600px */
     background: linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 100%);
     border: 4px solid #ff69b4;
     border-radius: 25px;
@@ -539,32 +539,3 @@ body::before {
 .heart:nth-child(8) { left: 80%; animation-delay: -2.2s; --random-x: -40px; }
 .heart:nth-child(9) { left: 90%; animation-delay: -3.5s; --random-x: 30px; }
 .heart:nth-child(10) { left: 95%; animation-delay: -1.2s; --random-x: -70px; }
-
-.image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.left-images, .right-images {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 250px;
-}
-
-.left-images img, .right-images img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 15px;
-    border: 3px solid #ff69b4;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
-}
